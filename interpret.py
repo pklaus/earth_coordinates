@@ -6,13 +6,13 @@
 from coordinates import coordinates, latitude, longitude
 import re
 
-NUMBER = u"([0-9]{1,3}\\.?[0-9]{0,9})"
-NUMBER60 = u"[\+-]?[0-5]?[0-9]"
-NUMBER60_DEC = NUMBER60 + u"|" + NUMBER60 + u"\\.[0-9]{0,9}"
-NUMBER60_DEC_G = u"(?P<%s>" + NUMBER60_DEC + u")"
-NUMBER360 = u"[\+-]?(35[0-9]|3[0-4][0-9]|[1-2][0-9][0-9]|0?[0-9]?[0-9])"
-NUMBER360_DEC = NUMBER360 + u"\\.[0-9]{0,9}" + u"|" +  NUMBER360
-NUMBER360_DEC_G = u"(?P<%s>" + NUMBER360_DEC + u")" # named group replace the placeholder %s with the name
+NUMBER = u"([0-9]{1,3}(\\.[0-9]{1,9})?)" # regex for a number (such as 999, 12.12 0.000000001)
+NUMBER60 = u"[\+-]?[0-5]?[0-9]" # regex for a pos./neg. number up to 59 (such as -59, 0, 22)
+NUMBER60_DEC = NUMBER60 + u"(\\.[0-9]{1,9})?" # regex for a pos/neg with abs(number)<60 with up to 9 decimals
+NUMBER60_DEC_G = u"(?P<%s>" + NUMBER60_DEC + u")" # create named regex from regex above (replace the placeholder %s with the name)
+NUMBER360 = u"[\+-]?(35[0-9]|3[0-4][0-9]|[1-2][0-9][0-9]|0?[0-9]?[0-9])" # regex for pos/neg integer degree values with abs(number)<360 (such as -359, 002, 1, 099)
+NUMBER360_DEC = NUMBER360 + u"(\\.[0-9]{1,9})?" # above regex with an optional addition of up to 9 digits 
+NUMBER360_DEC_G = u"(?P<%s>" + NUMBER360_DEC + u")" # create named regex from regex above (replace the placeholder %s with the name)
 SPACE = u"\\s{1,5}" # the maximum number of spaces between text elements in the angle strings
 DEG_ANGLE = (NUMBER360_DEC_G % "degrees") + u"\u00B0?" # U+00B0 is the degree sign °
 DEG_MIN_ANGLE = DEG_ANGLE + SPACE + (NUMBER60_DEC_G % 'minutes') + u"'?"

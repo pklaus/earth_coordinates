@@ -15,6 +15,7 @@ from coordinates import coordinates, latitude
 VALID_COORDINATE_SAMPLES = ( (  "20.123 N, 19.132 E", ( 20.123, 19.132)  )  ,
                              (  "20.123, 19.132",     ( 20.123, 19.132)  )  ,
                              (  "N20.123, E19.132",   ( 20.123, 19.132)  )  ,
+                             (  u'49.234° 24.2\' 14 N, 49.234° 24.2\' 14" E ',   ( 49.641222222222225, 49.641222222222225)  )  ,
                            )
 
 class test_coordinates(unittest.TestCase):

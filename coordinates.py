@@ -24,8 +24,8 @@ class Coordinates(object):
     def __eq__(self, coords):
         if isinstance(coords, Coordinates):
             if self.lat == coords.lat and self.lon == coords.lon:
-                return 0
-        return 1
+                return True
+        return False
     def __str__(self):
         return "%s, %s" % (self.lat, self.lon)
     def __repr__(self):
@@ -46,8 +46,8 @@ class Angle(object):
     def __eq__(self,other_angle):
         if isinstance(other_angle, Angle):
             if self.value == other_angle.value:
-                return 0
-        return 1
+                return True
+        return False
 
     def __repr__(self):
         return "%r %f °" % (str(type(self)).split('.')[1].split("'")[0], self.value)
@@ -62,7 +62,7 @@ class Latitude(Angle):
     def __eq__(self,other_latitude):
         if isinstance(other_latitude, Latitude):
             return super(Latitude, self).__eq__(other_latitude)
-        return 1
+        return False
 
 
 class Longitude(Angle):
@@ -74,7 +74,7 @@ class Longitude(Angle):
     def __eq__(self,other_longitude):
         if isinstance(other_longitude, Longitude):
             return super(Longitude, self).__eq__(other_longitude)
-        return 1
+        return False
 
 
 if __name__ == '__main__':

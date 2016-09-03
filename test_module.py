@@ -5,12 +5,11 @@
 
 import unittest
 import random
-
 import re
-from interpret import DEG_MIN_SEC_ANGLE
 
-from interpret import interpret, interpret_angle, CoordinateInterpretationError
-from coordinates import Coordinates, Latitude
+from earth_coordinates import interpret, interpret_angle, CoordinateInterpretationError
+from earth_coordinates import Coordinates, Latitude
+from earth_coordinates.interpret import DEG_MIN_SEC_ANGLE
 
 VALID_COORDINATE_SAMPLES = ( (  "20.123 N, 19.132 E", ( 20.123, 19.132)  )  ,
                              (  "20.123, 19.132",     ( 20.123, 19.132)  )  ,

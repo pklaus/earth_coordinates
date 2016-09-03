@@ -3,7 +3,7 @@
 
 # Author: Philipp Klaus, philippklaus.de
 
-from coordinates import Coordinates, Latitude, Longitude
+from .coordinates import Coordinates, Latitude, Longitude
 import re
 
 NUMBER = u"([0-9]{1,3}(\\.[0-9]{1,9})?)" # regex for a number (such as 999, 12.12 0.000000001)
@@ -65,13 +65,3 @@ def interpret_angle(angle_string, should_be_latitude=True):
         else:
             return Longitude(value)
     raise CoordinateInterpretationError(angle_string, "Trying to interpret %s" % angle_string)
-
-if __name__ == '__main__':
-    while True:
-        inp = raw_input("Enter Coordinates: ")
-        try:
-            coordinates = interpret(inp)
-        except CoordinateInterpretationError:
-            print "Sorry, I could not interpret your input."
-            continue
-        print coordinates

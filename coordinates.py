@@ -11,18 +11,18 @@ MAX_LON =  360.0
 class AngleOutOfBounds(Exception):
     pass
 
-class coordinates(object):
+class Coordinates(object):
     def __init__(self,lat=0.0,lon=0.0):
         """lat and lon can be of type float or of type angle (as well as its subclasses longitude and latitude)"""
-        if isinstance(lat, angle) and isinstance(lon, angle):
+        if isinstance(lat, Angle) and isinstance(lon, Angle):
             self.lat = lat
             self.lon = lon
         else:
-            self.lat = latitude(float(lat))
-            self.lon = longitude(float(lon))
+            self.lat = Latitude(float(lat))
+            self.lon = Longitude(float(lon))
 
-    def __cmp__(self, coords):
-        if isinstance(coords, coordinates):
+    def __eq__(self, coords):
+        if isinstance(coords, Coordinates):
             if self.lat == coords.lat and self.lon == coords.lon:
                 return 0
         return 1
@@ -31,7 +31,9 @@ class coordinates(object):
     def __repr__(self):
         return "coordinates: %r, %r" % (self.lat, self.lon)
 
-class angle(object):
+
+class Angle(object):
+
     def __init__(self,value=0.0):
         self.set(value)
 
@@ -41,34 +43,39 @@ class angle(object):
     def __str__(self):
         return "%f" % self.value
 
-    def __cmp__(self,other_angle):
-        if isinstance(other_angle, angle):
+    def __eq__(self,other_angle):
+        if isinstance(other_angle, Angle):
             if self.value == other_angle.value:
                 return 0
         return 1
+
     def __repr__(self):
         return "%r %f °" % (str(type(self)).split('.')[1].split("'")[0], self.value)
 
-class latitude(angle):
+
+class Latitude(Angle):
     def set(self,value):
         if value < MIN_LAT or value > MAX_LAT:
             raise AngleOutOfBounds
-        return super(latitude, self).set(value)
+        return super(Latitude, self).set(value)
     
-    def __cmp__(self,other_latitude):
-        if isinstance(other_latitude, latitude):
-            return super(latitude, self).__cmp__(other_latitude)
+    def __eq__(self,other_latitude):
+        if isinstance(other_latitude, Latitude):
+            return super(Latitude, self).__eq__(other_latitude)
         return 1
-class longitude(angle):
+
+
+class Longitude(Angle):
     def set(self,value):
         if value < MIN_LON or value > MAX_LON:
             raise AngleOutOfBounds
-        return super(longitude, self).set(value)
+        return super(Longitude, self).set(value)
     
-    def __cmp__(self,other_longitude):
-        if isinstance(other_longitude, longitude):
-            return super(longitude, self).__cmp__(other_longitude)
+    def __eq__(self,other_longitude):
+        if isinstance(other_longitude, Longitude):
+            return super(Longitude, self).__eq__(other_longitude)
         return 1
+
 
 if __name__ == '__main__':
     pass

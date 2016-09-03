@@ -3,7 +3,7 @@
 
 # Author: Philipp Klaus, philippklaus.de
 
-from coordinates import coordinates, latitude, longitude
+from coordinates import Coordinates, Latitude, Longitude
 import re
 
 NUMBER = u"([0-9]{1,3}(\\.[0-9]{1,9})?)" # regex for a number (such as 999, 12.12 0.000000001)
@@ -34,7 +34,7 @@ def interpret(coordinate_string):
         raise CoordinateInterpretationError(coordinate_string, "Trying to interpret %s" % coordinate_string)
     latitude = interpret_angle(lat_string, True)
     longitude = interpret_angle(lon_string, False)
-    return coordinates(latitude,longitude)
+    return Coordinates(latitude, longitude)
 
 def interpret_angle(angle_string, should_be_latitude=True):
     angle_string = angle_string.strip()
@@ -57,13 +57,13 @@ def interpret_angle(angle_string, should_be_latitude=True):
         match_latitude = re.search(LATITUDE_NAME,angle_string)
         match_longitude = re.search(LONGITUDE_NAME,angle_string)
         if match_latitude != None:
-            return latitude(value)
+            return Latitude(value)
         if match_longitude != None:
-            return longitude(value)
+            return Longitude(value)
         if should_be_latitude:
-            return latitude(value)
+            return Latitude(value)
         else:
-            return longitude(value)
+            return Longitude(value)
     raise CoordinateInterpretationError(angle_string, "Trying to interpret %s" % angle_string)
 
 if __name__ == '__main__':

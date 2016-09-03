@@ -38,24 +38,24 @@ def interpret(coordinate_string):
 
 def interpret_angle(angle_string, should_be_latitude=True):
     angle_string = angle_string.strip()
-    match = re.search(DEG_MIN_SEC_ANGLE,angle_string)
+    match = re.search(DEG_MIN_SEC_ANGLE, angle_string)
     value = None
     if match != None:
         degs, mins, secs = match.group('degrees'), match.group('minutes'), match.group('seconds')
         value = float(degs)+float(mins)/60.0+float(secs)/60.0**2
     if value == None:
-        match = re.search(DEG_MIN_ANGLE,angle_string)
+        match = re.search(DEG_MIN_ANGLE, angle_string)
         if match != None:
             degs, mins = match.group('degrees'), match.group('minutes')
             value = float(degs)+float(mins)/60.0
     if value == None:
-        match = re.search(DEG_ANGLE,angle_string)
+        match = re.search(DEG_ANGLE, angle_string)
         if match != None:
             degs = match.group('degrees')
             value = float(degs)
     if value != None:
-        match_latitude = re.search(LATITUDE_NAME,angle_string)
-        match_longitude = re.search(LONGITUDE_NAME,angle_string)
+        match_latitude = re.search(LATITUDE_NAME, angle_string)
+        match_longitude = re.search(LONGITUDE_NAME, angle_string)
         if match_latitude != None:
             return Latitude(value)
         if match_longitude != None:

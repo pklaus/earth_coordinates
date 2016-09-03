@@ -12,7 +12,7 @@ class AngleOutOfBounds(Exception):
     pass
 
 class Coordinates(object):
-    def __init__(self,lat=0.0,lon=0.0):
+    def __init__(self, lat=0.0, lon=0.0):
         """lat and lon can be of type float or of type angle (as well as its subclasses longitude and latitude)"""
         if isinstance(lat, Angle) and isinstance(lon, Angle):
             self.lat = lat
@@ -34,16 +34,16 @@ class Coordinates(object):
 
 class Angle(object):
 
-    def __init__(self,value=0.0):
+    def __init__(self, value=0.0):
         self.set(value)
 
-    def set(self,value):
+    def set(self, value):
         self.value = value
 
     def __str__(self):
         return "%f" % self.value
 
-    def __eq__(self,other_angle):
+    def __eq__(self, other_angle):
         if isinstance(other_angle, Angle):
             if self.value == other_angle.value:
                 return True
@@ -54,24 +54,24 @@ class Angle(object):
 
 
 class Latitude(Angle):
-    def set(self,value):
+    def set(self, value):
         if value < MIN_LAT or value > MAX_LAT:
             raise AngleOutOfBounds
         return super(Latitude, self).set(value)
     
-    def __eq__(self,other_latitude):
+    def __eq__(self, other_latitude):
         if isinstance(other_latitude, Latitude):
             return super(Latitude, self).__eq__(other_latitude)
         return False
 
 
 class Longitude(Angle):
-    def set(self,value):
+    def set(self, value):
         if value < MIN_LON or value > MAX_LON:
             raise AngleOutOfBounds
         return super(Longitude, self).set(value)
     
-    def __eq__(self,other_longitude):
+    def __eq__(self, other_longitude):
         if isinstance(other_longitude, Longitude):
             return super(Longitude, self).__eq__(other_longitude)
         return False

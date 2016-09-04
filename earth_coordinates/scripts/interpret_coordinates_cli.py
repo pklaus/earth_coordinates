@@ -6,7 +6,7 @@
 from earth_coordinates import Coordinates, Latitude, Longitude
 from earth_coordinates import CoordinateInterpretationError, interpret, interpret_angle
 
-if __name__ == '__main__':
+def main():
     try:
         while True:
             try:
@@ -23,3 +23,6 @@ if __name__ == '__main__':
         #print("\n[Ctrl]-[c] pressed. Exiting...")
         print("")
         pass
+
+if __name__ == '__main__':
+    main()
